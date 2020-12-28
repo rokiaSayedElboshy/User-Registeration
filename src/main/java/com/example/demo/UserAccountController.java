@@ -1,12 +1,16 @@
 package com.example.demo;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 
 @Controller
@@ -14,14 +18,25 @@ public class UserAccountController {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private developerService devService;
 
     @Autowired
     private ConfirmationTokenRepository confirmationTokenRepository;
 
     @Autowired
     private EmailService emailSenderService;
+    
+    @PostMapping("/User")
+    @ResponseBody
+    public String addUser(@RequestBody User newUser) {
+    	
+    	devService.addUser(newUser);
+    	return "saved successfuly";
+    }
 
-    @RequestMapping(value="/register", method = RequestMethod.GET)
+    @RequestMapping(value="/User")
     public ModelAndView displayRegistration(ModelAndView modelAndView, User user)
     {
         modelAndView.addObject("user", user);

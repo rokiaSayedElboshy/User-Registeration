@@ -11,6 +11,7 @@ public class EmailService {
 
     private static JavaMailSender javaMailSender;
 
+
     @Autowired
     public EmailService(JavaMailSender javaMailSender) {
         EmailService.javaMailSender = javaMailSender;
@@ -20,4 +21,6 @@ public class EmailService {
     public static void sendEmail(SimpleMailMessage email) {
         javaMailSender.send(email);
     }
+
+    
 }
